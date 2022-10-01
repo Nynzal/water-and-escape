@@ -41,3 +41,24 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3977757713
+    locked: 0
+  - name: Floor
+    uniqueID: 10238347
+    locked: 0
+  - name: Water
+    uniqueID: 2219819717
+    locked: 0
+  - name: Walls
+    uniqueID: 2142165685
+    locked: 0
+  - name: MovementPlane
+    uniqueID: 1410771565
+    locked: 0
+  - name: Foreground
+    uniqueID: 2100331509
+    locked: 0
+  - name: UI
+    uniqueID: 2413259457
+    locked: 0
