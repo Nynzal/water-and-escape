@@ -15,6 +15,10 @@ public class PlayerBehaviour : MonoBehaviour
     // State
     private bool _isTouchingWater;
     
+    // Interaction Timer
+    [SerializeField] private float _waterGrabTime;
+    private float _slurpingTime;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -28,9 +32,19 @@ public class PlayerBehaviour : MonoBehaviour
     void Update()
     {
         // Check for water slurping input
-        if (Input.GetKeyDown(KeyCode.F) && _isTouchingWater)
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            EventManager.Instance.OnAccessingWater();
+            EventManager.Instance.OnInteractionKeyDown();
+            if (_isTouchingWater)
+            {
+                EventManager.Instance.OnAccessingWater();
+            }
+            
+        }
+
+        if (Input.GetKeyUp(KeyCode.F))
+        {
+            EventManager.Instance.OnInteractionKeyRelease();
         }
     }
 
@@ -41,7 +55,6 @@ public class PlayerBehaviour : MonoBehaviour
         float y = Input.GetAxis("Vertical");
 
         float d = Mathf.Sqrt(x * x + y * y);
-        Debug.Log("movement vector length: " + d);
         if (d > 1)
         {
             x /= d;

@@ -43,4 +43,72 @@ public class EventManager
     {
         TimeIntervalCompleted?.Invoke(number);
     }
+    
+    
+    // ------------- Keys
+    
+    // Entered a collectable key area
+    public event Action<int, string> EnteredKeyCollectArea;
+
+    public void OnEnteringKeyCollectArea(int id, string collectDesc)
+    {
+        EnteredKeyCollectArea?.Invoke(id, collectDesc);
+    }
+    
+    // Left collectable key area
+    public event Action LeftKeyCollectArea;
+
+    public void OnLeavingKeyCollectArea()
+    {
+        LeftKeyCollectArea?.Invoke();
+    }
+    
+    // Collected Key
+    public event Action<int> CollectedKey;
+
+    public void OnKeyCollection(int id)
+    {
+        CollectedKey?.Invoke(id);
+    }
+    
+    // Entered Gate Area
+    public event Action<bool, string> EnteredGateArea;
+
+    public void OnEnteringGateArea(bool key, string desc)
+    {
+        EnteredGateArea?.Invoke(key, desc);
+    }
+
+    // Leaving Gate Area
+    public event Action LeftGateArea;
+
+    public void OnLeavingGateArea()
+    {
+        LeftGateArea?.Invoke();
+    }
+    
+    // Using Key on Gate
+    public event Action<int> UsedKeyOnGate;
+
+    public void OnUsingKeyOnGate(int id)
+    {
+        UsedKeyOnGate?.Invoke(id);
+    }
+    
+    
+    
+    // Interaction Key
+    public event Action HoldingInteractionKey;
+
+    public void OnInteractionKeyDown()
+    {
+        HoldingInteractionKey?.Invoke();
+    }
+
+    public event Action ReleasedInteractionKey;
+
+    public void OnInteractionKeyRelease()
+    {
+        ReleasedInteractionKey?.Invoke();
+    }
 }

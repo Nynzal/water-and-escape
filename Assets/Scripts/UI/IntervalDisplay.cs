@@ -16,11 +16,16 @@ public class IntervalDisplay : MonoBehaviour
     private float _currentTime;
 
     [SerializeField] private string _intervalDescription;
-    
+
+    private void Awake()
+    {
+        _intervalManager = FindObjectOfType<TimeIntervalManager>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        _intervalManager = FindObjectOfType<TimeIntervalManager>();
+        
     }
 
     private void OnEnable()
