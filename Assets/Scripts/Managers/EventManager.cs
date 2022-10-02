@@ -34,4 +34,13 @@ public class EventManager
     {
         AccessedWater?.Invoke();
     }
+    
+    
+    // On passing of a time interval
+    public event Action<int> TimeIntervalCompleted;
+
+    public void OnTimeIntervalCompleted(int number)
+    {
+        TimeIntervalCompleted?.Invoke(number);
+    }
 }
