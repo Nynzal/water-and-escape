@@ -95,18 +95,27 @@ public class EventManager
         UsedKeyOnGate?.Invoke(id);
     }
     
-    
+    // Interaction Area
+    public event Action<Vector2> EnteredInteractionArea;
+    public void OnEnteringInteractionArea(Vector2 worldAnchor)
+    {
+        EnteredInteractionArea?.Invoke(worldAnchor);
+    }
+
+    public event Action LeftInteractionArea;
+    public void OnLeavingInteractionArea()
+    {
+        LeftInteractionArea?.Invoke();
+    }
     
     // Interaction Key
     public event Action HoldingInteractionKey;
-
     public void OnInteractionKeyDown()
     {
         HoldingInteractionKey?.Invoke();
     }
 
     public event Action ReleasedInteractionKey;
-
     public void OnInteractionKeyRelease()
     {
         ReleasedInteractionKey?.Invoke();
