@@ -96,16 +96,16 @@ public class EventManager
     }
     
     // Interaction Area
-    public event Action<Vector2> EnteredInteractionArea;
-    public void OnEnteringInteractionArea(Vector2 worldAnchor)
+    public event Action<Interactable> EnteredInteractionArea;
+    public void OnEnteringInteractionArea(Interactable interactable)
     {
-        EnteredInteractionArea?.Invoke(worldAnchor);
+        EnteredInteractionArea?.Invoke(interactable);
     }
 
-    public event Action LeftInteractionArea;
-    public void OnLeavingInteractionArea()
+    public event Action<Interactable> LeftInteractionArea;
+    public void OnLeavingInteractionArea(Interactable interactable)
     {
-        LeftInteractionArea?.Invoke();
+        LeftInteractionArea?.Invoke(interactable);
     }
     
     // Interaction Key

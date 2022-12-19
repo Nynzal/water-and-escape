@@ -11,13 +11,13 @@ public abstract class Interactable : MonoBehaviour
     // Has to be connected to another class for the actual object
     
     // Interaction radius
-    [SerializeField] private Collider2D _interactionCollider;
+    public Collider2D _interactionCollider;
     
     // World Anchor for the interaction popup UI element
-    [SerializeField] private Vector2 _uiOffset;
+    public Vector2 _uiOffset;
     
     // Handle the pickup of the interactable
-    protected abstract void CompleteInteraction();
+    public abstract void CompleteInteraction();
 
     
     // Interaction start
@@ -25,8 +25,7 @@ public abstract class Interactable : MonoBehaviour
     {
         if (col.CompareTag("Player"))
         {
-            EventManager.Instance.OnEnteringInteractionArea(
-                new Vector2(transform.position.x, transform.position.y) + _uiOffset);
+            EventManager.Instance.OnEnteringInteractionArea(this);
         }
     }
 
@@ -34,8 +33,13 @@ public abstract class Interactable : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            EventManager.Instance.OnLeavingInteractionArea();
+            EventManager.Instance.OnLeavingInteractionArea(this);
         }
+    }
+
+    public Vector2 GetPromptWorldAnchor()
+    {
+        return new Vector2(transform.position.x, transform.position.y) + _uiOffset;
     }
 
     // Interactable consumed / collected
