@@ -35,11 +35,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             EventManager.Instance.OnInteractionKeyDown();
-            if (_isTouchingWater)
-            {
-                EventManager.Instance.OnAccessingWater();
-            }
-            
+
         }
 
         if (Input.GetKeyUp(KeyCode.F))

@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -90,5 +88,6 @@ public class InteractionPrompt : MonoBehaviour
     private void OnInteractionKeyRelease()
     {
         _isKeyDown = false;
+        _circleImage.fillAmount = 0;
     }
 }

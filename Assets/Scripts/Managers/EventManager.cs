@@ -28,11 +28,11 @@ public class EventManager
     
     
     // On drinking water
-    public event Action AccessedWater;
+    public event Action<WaterSource> AccessedWater;
 
-    public void OnAccessingWater()
+    public void OnAccessingWater(WaterSource waterSource)
     {
-        AccessedWater?.Invoke();
+        AccessedWater?.Invoke(waterSource);
     }
     
     

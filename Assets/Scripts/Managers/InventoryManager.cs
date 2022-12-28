@@ -32,9 +32,10 @@ public class InventoryManager : MonoBehaviour
         _currentWater -= _waterConsumption * Time.deltaTime;
     }
 
-    private void OnWaterPickup()
+    private void OnWaterPickup(WaterSource waterSource)
     {
-        _currentWater = _maxWaterCapacity;
+        float gainedWater = waterSource.TakeWater(_maxWaterCapacity - _currentWater);
+        _currentWater += gainedWater;
     }
 
     public float GetCurrentWater()
