@@ -18,11 +18,13 @@ public class InventoryManager : MonoBehaviour
     private void OnEnable()
     {
         EventManager.Instance.AccessedWater += OnWaterPickup;
+        EventManager.Instance.PlayerReceivedDamage += OnPlayerDamage;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.AccessedWater -= OnWaterPickup;
+        EventManager.Instance.PlayerReceivedDamage -= OnPlayerDamage;
     }
 
     // Update is called once per frame
@@ -46,5 +48,11 @@ public class InventoryManager : MonoBehaviour
     public float GetMaxWater()
     {
         return _maxWaterCapacity;
+    }
+
+
+    private void OnPlayerDamage(float damage)
+    {
+        _currentWater -= damage;
     }
 }

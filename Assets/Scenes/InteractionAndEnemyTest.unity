@@ -657,7 +657,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d282fbe085fff48a2f7d42305059d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 10
+  _movementSpeed: 5
+  _dashSpeed: 20
+  _dashDistance: 2
+  _dashCooldown: 10
   _waterGrabTime: 0
 --- !u!50 &351163430
 Rigidbody2D:
@@ -1922,7 +1925,9 @@ MonoBehaviour:
   _visionRange: 5
   _aggressionRange: 10
   _speed: 5
-  _damage: 0
+  _damage: 5
+  _initialDamageDelay: 0.1
+  _followUpDamageDelay: 1
   _scanFrequency: 1
 --- !u!50 &1297468212
 Rigidbody2D:

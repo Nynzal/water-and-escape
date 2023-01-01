@@ -27,13 +27,17 @@ public class Enemy : MonoBehaviour
     // Stats
     [SerializeField] private float _speed;
     [SerializeField] private float _damage;
+    [SerializeField] private float _initialDamageDelay;
+    [SerializeField] private float _followUpDamageDelay;
     [SerializeField] private float _scanFrequency;
     
     
     // States
     private bool _isPlayerInRange = false;
     private bool _isPlayerVisible = false;
+    private bool _isAttacking = false;
     private float _currentTimeInterval;
+    private float _currentDamageWaitTime;
 
     private Rigidbody2D _rigidbody2D;
     
@@ -50,7 +54,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Update enemy state 
+        // Return to spawn when no player in range
         if (!_isPlayerInRange)
         {
             if (Vector3.Distance(transform.position, _startPosition) > 0.1f)
@@ -62,6 +66,50 @@ public class Enemy : MonoBehaviour
             return;
         }
         
+        MoveByPlayerVisibility();
+        
+        AttackBehaviour();
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("Player"))
+        {
+            // Player entered 
+            _playerTransform = col.transform;
+            _isPlayerInRange = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            _playerTransform = null;
+            _isPlayerInRange = false;
+            _lastPlayerPosition = _startPosition;
+        }
+    }
+    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            _isAttacking = true;
+            _currentDamageWaitTime = _initialDamageDelay;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            _isAttacking = false;
+        }
+    }
+
+    private void MoveByPlayerVisibility()
+    {
         // In a time interval, check if player is visible
         _currentTimeInterval += Time.deltaTime;
         if (_currentTimeInterval >= 1 / _scanFrequency)
@@ -84,31 +132,7 @@ public class Enemy : MonoBehaviour
         
         MoveTo(_lastPlayerPosition);
     }
-
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.CompareTag("Player"))
-        {
-            // Player entered 
-            _playerTransform = col.transform;
-            _isPlayerInRange = true;
-
-            Debug.Log("Player entered enemy range");
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            _playerTransform = null;
-            _isPlayerInRange = false;
-            _lastPlayerPosition = _startPosition;
-            
-            Debug.Log("Player left enemy range");
-        }
-    }
-
+    
     private bool IsPlayerVisible()
     {
         /*
@@ -128,7 +152,6 @@ public class Enemy : MonoBehaviour
             return false;
         }
         
-        Debug.Log("Player in vision");
         _lastPlayerPosition = hit2D.transform.position;
         
         return true;
@@ -136,6 +159,11 @@ public class Enemy : MonoBehaviour
 
     private void MoveTo(Vector3 target)
     {
+        if (Vector3.Distance(target, transform.position) < 0.1f)
+        {
+            return;
+        }
+        
         Vector3 pos = transform.position;
         // Get directional vector to target
         Vector3 step = (target - pos).normalized;
@@ -145,5 +173,25 @@ public class Enemy : MonoBehaviour
 
         // Move
         _rigidbody2D.MovePosition(step + pos);
+    }
+
+    private void AttackBehaviour()
+    {
+        if (!_isAttacking)
+        {
+            return;
+        }
+
+        _currentDamageWaitTime -= Time.deltaTime;
+        if (_currentDamageWaitTime <= 0)
+        {
+            MakeAttack();
+            _currentDamageWaitTime = _followUpDamageDelay;
+        }
+    }
+
+    private void MakeAttack()
+    {
+        _playerTransform.gameObject.GetComponent<PlayerBehaviour>().ReceiveAttack(_damage);
     }
 }

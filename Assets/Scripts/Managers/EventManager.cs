@@ -17,7 +17,7 @@ public class EventManager
         }
     }
     
-    
+    // ------ WATER stuff
     // On touching a water source
     public event Action<bool> WaterTouchingState;
 
@@ -36,12 +36,21 @@ public class EventManager
     }
     
     
+    // ------- TIME stuff
     // On passing of a time interval
     public event Action<int> TimeIntervalCompleted;
 
     public void OnTimeIntervalCompleted(int number)
     {
         TimeIntervalCompleted?.Invoke(number);
+    }
+    
+    
+    // --------- ENEMY & DAMAGE
+    public event Action<float> PlayerReceivedDamage;
+    public void OnPlayerReceivingDamage(float damage)
+    {
+        PlayerReceivedDamage?.Invoke(damage);
     }
     
     
