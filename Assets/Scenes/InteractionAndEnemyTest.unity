@@ -658,9 +658,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementSpeed: 5
-  _dashSpeed: 20
-  _dashDistance: 2
-  _dashCooldown: 10
+  _dashSpeed: 15
+  _dashDistance: 5
+  _dashCooldown: 5
   _waterGrabTime: 0
 --- !u!50 &351163430
 Rigidbody2D:
