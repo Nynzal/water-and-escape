@@ -54,6 +54,19 @@ public class EventManager
     }
     
     
+    // --------- ABILITIES
+    public event Action PlayerDashReady;
+    public void OnPlayerDashReady()
+    {
+        PlayerDashReady?.Invoke();
+    }
+
+    public event Action<float> PlayerDashTriggered;
+    public void OnPlayerDashUsed(float cooldown)
+    {
+        PlayerDashTriggered?.Invoke(cooldown);
+    }
+    
     // ------------- Keys
     
     // Entered a collectable key area

@@ -85,6 +85,7 @@ public class PlayerBehaviour : MonoBehaviour
             _dashRecoveryTimer = 0;
             _dashTraveled = 0;
             _dashDirection = new Vector2(x, y);
+            EventManager.Instance.OnPlayerDashUsed(_dashCooldown);
         }
 
         // Dash cooldown
@@ -95,6 +96,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 _isDashReady = true;
                 Debug.Log("Dash cooldown up");
+                EventManager.Instance.OnPlayerDashReady();
             }
         }
         

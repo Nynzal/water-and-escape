@@ -54,10 +54,11 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float dist = Vector3.Distance(_startPosition, transform.position);
         // Return to spawn when no player in range
-        if (!_isPlayerInRange)
+        if (!_isPlayerInRange || dist > _aggressionRange)
         {
-            if (Vector3.Distance(transform.position, _startPosition) > 0.1f)
+            if (dist > 0.1f)
             {
                 // Move back to start position
                 MoveTo(_startPosition);
