@@ -15,7 +15,7 @@ TagManager:
   - UI
   - VisionPlane
   - Enemy
-  - 
+  - Shadow
   - 
   - 
   - 
@@ -51,6 +51,9 @@ TagManager:
     locked: 0
   - name: Water
     uniqueID: 2219819717
+    locked: 0
+  - name: Shadows
+    uniqueID: 2102107169
     locked: 0
   - name: Walls
     uniqueID: 2142165685

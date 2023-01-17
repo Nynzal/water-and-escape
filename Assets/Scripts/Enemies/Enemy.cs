@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
     {
         float dist = Vector3.Distance(_startPosition, transform.position);
         // Return to spawn when no player in range
-        if (!_isPlayerInRange || dist > _aggressionRange)
+        if (dist > _aggressionRange || !_isPlayerInRange )
         {
             if (dist > 0.1f)
             {
