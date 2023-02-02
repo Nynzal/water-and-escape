@@ -140,7 +140,7 @@ MonoBehaviour:
   _visionRangeCollider: {fileID: 6453215805157266357}
   _visionRange: 5
   _aggressionRange: 10
-  _speed: 10
+  _speed: 4
   _damage: 5
   _initialDamageDelay: 0.1
   _followUpDamageDelay: 1

@@ -12,8 +12,7 @@ public class InteractionPrompt : MonoBehaviour
     
     // Current anchor in the world
     private Interactable _interactable;
-    private Camera _camera;
-    
+
     // State 
     private bool _isActive = false;
     private bool _isKeyDown = false;
@@ -39,7 +38,7 @@ public class InteractionPrompt : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _camera = Camera.main;
+        
     }
 
     // Update is called once per frame
@@ -47,7 +46,7 @@ public class InteractionPrompt : MonoBehaviour
     {
         if (_isActive)
         {
-            transform.position = _camera.WorldToScreenPoint(_interactable.GetPromptWorldAnchor());
+            transform.position = Camera.main.WorldToScreenPoint(_interactable.GetPromptWorldAnchor());
 
             if (_isKeyDown)
             {

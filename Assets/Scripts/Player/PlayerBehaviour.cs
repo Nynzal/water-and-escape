@@ -136,13 +136,16 @@ public class PlayerBehaviour : MonoBehaviour
         // Dashing State
         if (_isDashTriggered)
         {
-            _isDashReady = false;
             _isDashTriggered = false;
-            _isDashing = true;
-            _dashRecoveryTimer = 0;
-            _dashTraveled = 0;
-            _dashDirection = new Vector2(x, y);
-            EventManager.Instance.OnPlayerDashUsed(_dashCooldown);
+            if (x is > 0.05f or < -0.05f || y is > 0.05f or < -0.05f)
+            {
+                _isDashReady = false;
+                _isDashing = true;
+                _dashRecoveryTimer = 0;
+                _dashTraveled = 0;
+                _dashDirection = new Vector2(x, y);
+                EventManager.Instance.OnPlayerDashUsed(_dashCooldown);
+            }
         }
 
         // Dash cooldown

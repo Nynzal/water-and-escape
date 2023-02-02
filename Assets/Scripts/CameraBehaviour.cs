@@ -10,6 +10,8 @@ public class CameraBehaviour : MonoBehaviour
     [SerializeField] private Vector2 _xWorldConstraint;
     [SerializeField] private Vector2 _yWorldConstraint;
     [SerializeField] private Vector2 _borderBuffer;
+
+    [SerializeField] private Camera _camera;
     
     private Vector2 _xConstraints;
     private Vector2 _yConstraints;
@@ -39,6 +41,11 @@ public class CameraBehaviour : MonoBehaviour
 
     private void UpdateCameraConstraints()
     {
+        Vector3 bottomLeft = _camera.ScreenToWorldPoint(new Vector3(0, 0, 0));
+        Vector3 topRight = _camera.ScreenToWorldPoint(new Vector3(_camera.pixelWidth, _camera.pixelHeight, 0));
+
+        _borderBuffer = new Vector2((topRight.x - bottomLeft.x) / 2f, (topRight.y - bottomLeft.y) / 2f);
+        
         _xConstraints = new Vector2(_xWorldConstraint.x + _borderBuffer.x, _xWorldConstraint.y - _borderBuffer.x);
         _yConstraints = new Vector2(_yWorldConstraint.x + _borderBuffer.y, _yWorldConstraint.y - _borderBuffer.y);
     }

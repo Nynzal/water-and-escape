@@ -25,7 +25,6 @@ public class WaterSource : Interactable
 
     public override void CompleteInteraction()
     {
-        Debug.Log("Interacting with water source");
         EventManager.Instance.OnAccessingWater(this);
     }
 
@@ -51,5 +50,6 @@ public class WaterSource : Interactable
     {
         // handle the drying out of water source here
         _interactionCollider.enabled = false;
+        CleanUp();
     }
 }

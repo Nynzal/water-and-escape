@@ -11,6 +11,7 @@ public class IntervalDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _intervalText;
 
     private TimeIntervalManager _intervalManager;
+    private bool _isRunning;
 
     private float _maxTime;
     private float _currentTime;
@@ -33,16 +34,22 @@ public class IntervalDisplay : MonoBehaviour
         EventManager.Instance.TimeIntervalCompleted += OnIntervalCompletion;
         _maxTime = _intervalManager.GetIntervalLength();
         _currentTime = _intervalManager.GetCurrentTime();
+        EventManager.Instance.GameSpeedState += OnGameSpeedChange;
     }
 
     private void OnDisable()
     {
         EventManager.Instance.TimeIntervalCompleted -= OnIntervalCompletion;
+        EventManager.Instance.GameSpeedState -= OnGameSpeedChange;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!_isRunning)
+        {
+            return;
+        }
         _currentTime += Time.deltaTime;
         _circularTimer.fillAmount = _currentTime / _maxTime;
     }
@@ -51,5 +58,10 @@ public class IntervalDisplay : MonoBehaviour
     {
         _currentTime = 0;
         _intervalText.text = "" + number + "\n" + _intervalDescription;
+    }
+
+    private void OnGameSpeedChange(bool running)
+    {
+        _isRunning = running;
     }
 }

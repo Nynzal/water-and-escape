@@ -17,6 +17,21 @@ public class EventManager
         }
     }
     
+    // ------- GAME events
+    // Start of the game
+    public event Action<bool> GameSpeedState;
+    public void OnGameSpeedChange(bool running)
+    {
+        GameSpeedState?.Invoke(running);
+    }
+    
+    // Game Over
+    public event Action GameOver;
+    public void OnGameOver()
+    {
+        GameOver?.Invoke();
+    }
+    
     // -------- SHADOW stuff
     // Shadow state change
     public event Action<bool> PlayerInShadowState;
