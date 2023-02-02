@@ -17,6 +17,15 @@ public class EventManager
         }
     }
     
+    // -------- SHADOW stuff
+    // Shadow state change
+    public event Action<bool> PlayerInShadowState;
+    public void OnPlayerInShadowStateChange(bool isInShadow)
+    {
+        PlayerInShadowState?.Invoke(isInShadow);
+    }
+
+    
     // ------ WATER stuff
     // On touching a water source
     public event Action<bool> WaterTouchingState;
@@ -142,4 +151,5 @@ public class EventManager
     {
         ReleasedInteractionKey?.Invoke();
     }
+    
 }
